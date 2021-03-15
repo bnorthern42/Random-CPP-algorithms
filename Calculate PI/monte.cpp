@@ -6,8 +6,6 @@ Monte Carlo Method
 #include <random>
 #include <cmath>
 #include <array>
-#include <omp.h>
-
 
 using namespace std;
 
@@ -18,7 +16,7 @@ double monte_carlo(int num_points)
 	std::uniform_int_distribution<int> distribution(0,1);
 	double in_circle = 0;
 	double total_points = 0;
-	double start = omp_get_wtime();
+
 
 	 for (int i=0; i<num_points; ++i) 
 	 {
@@ -31,8 +29,7 @@ double monte_carlo(int num_points)
 		
 		total_points++;
 	 }
-	 double end = omp_get_wtime();
-	 std::cout << end-start << " seconds, estimated pi: ";
+
 	 return (4*(in_circle/total_points));
 		
 }
@@ -50,13 +47,8 @@ int main(int argv, char* argc[]){
 	{
 		std::cout << "Estimate pi from " << try_this[i];
 		double monte= monte_carlo(try_this[i]);
-		std::cout << " points in time of: " << monte << std::endl;
-		
+		std::cout << " points: " << monte << std::endl;
 	}
-	
-	
-	
 
-	
 	return 0;
 }
